@@ -30,7 +30,7 @@
         echo '<td class="px-6 py-4">' . $book->getTitle() . '</td>';
         echo '<td class="px-6 py-4">' . $book->getAuthor() . '</td>';
         echo '<td class="px-6 py-4">' . $book->getPublisher() . '</td>';
-        echo ($book->getCover() === null) ? '<td class="px-6 py-4">-</td>' : '<td class="px-6 py-4">' . $book->getCover() . '</td>';
+        echo ($book->getCover() === null) ? '<td class="px-6 py-4">-</td>' : '<td class="px-6 py-4"><img src="uploads/cover/' . $book->getCover() . '" alt="Cover" class="max-w-44"></td>';
         echo '<td class="px-6 py-4">' . $book->getRackNumber() . "</td>";
         echo '</tr>';
       }

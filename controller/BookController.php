@@ -32,12 +32,42 @@ class BookController
       $errMessage = 'Please fill all the required fields';
       header('location: index.php?menu=adm-book-create&message=' . $errMessage);
     } else {
+      if (isset($_FILES['cover']['name']) && $_FILES['cover']['name'] != '') {
+        $targetDir = 'uploads/cover/';
+        $fileValid = 1;
+        $imageType = strtolower(pathinfo($_FILES['cover']['name'], PATHINFO_EXTENSION));
+
+        //  1st Validation (Check is image)
+        $isImage = getimagesize($_FILES['cover']['tmp_name']);
+        if ($isImage === false) {
+          $fileValid = 0;
+        }
+
+        //  2nd Validation (Check extension)
+        if ($fileValid && ($imageType != "jpg" && $imageType != "png" && $imageType != "jpeg")) {
+          $fileValid = 0;
+        }
+
+        //  3rd Validation (Check file size)
+        if ($fileValid && $_FILES['cover']['size'] > 2 * 1024 * 1024) {
+          $fileValid = 0;
+        }
+
+        //  Upload process
+        if ($fileValid) {
+          $newFileName = $isbn13 . '.' . $imageType;
+          move_uploaded_file($_FILES['cover']['tmp_name'], $targetDir . $newFileName);
+        }
+      }
       $book = new Book();
       $book->setIsbn13($isbn13);
       $book->setTitle($title);
       $book->setAuthor($author);
       $book->setPublisher($publisher);
       $book->setRackNumber($rackNumber);
+      if (isset($newFileName)) {
+        $book->setCover($newFileName);
+      }
       $result = $this->bookDao->addBook($book);
       if ($result) {
         $successMessage = 'Book added successfully';

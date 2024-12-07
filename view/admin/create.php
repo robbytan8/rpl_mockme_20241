@@ -6,7 +6,7 @@
       echo '<div class="w-full border-2 rounded bg-red-400 px-3 py-3 font-semibold">' . $errMessage . '</div>';
     }
     ?>
-    <form class="w-full" method="post" action="?menu=adm-book-store">
+    <form class="w-full" method="post" action="?menu=adm-book-store" enctype="multipart/form-data">
       <div class="md:flex md:items-center mb-3">
         <div class="md:w-1/5">
           <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="isbn13">
@@ -54,7 +54,17 @@
           </label>
         </div>
         <div class="md:w-4/5">
-          <input class="appearance-none border-2 rounded max-w-screen-sm py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="title" type="text" placeholder="e.g. AB-12" maxlength="10" name="rack_number" required>
+          <input class="appearance-none border-2 rounded max-w-screen-sm py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="rack_number" type="text" placeholder="e.g. AB-12" maxlength="10" name="rack_number" required>
+        </div>
+      </div>
+      <div class="md:flex md:items-center mb-3">
+        <div class="md:w-1/5">
+          <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="cover">
+            Cover
+          </label>
+        </div>
+        <div class="md:w-4/5">
+          <input class="appearance-none max-w-screen-sm py-2 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="cover" type="file" name="cover" accept="image/jpeg,image/png">
         </div>
       </div>
       <div class="md:flex md:items-center">
