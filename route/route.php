@@ -17,5 +17,13 @@ switch ($menu) {
     $bookController = new BookController();
     $bookController->store();
     break;
+  case 'adm-book-edit':
+    $bookController = new BookController();
+    $bookController->edit();
+    break;
+  case 'adm-book-update':
+    $bookController = new BookController();
+    $bookController->update();
+    break;
   default:
 }

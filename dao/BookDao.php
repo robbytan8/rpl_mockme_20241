@@ -38,4 +38,38 @@ class BookDao
     $link = null;
     return $result;
   }
+
+  public function showOneBook(string $isbn13)
+  {
+    $link = PDOUtil::createMySQLConnection();
+    $query = "SELECT isbn13, title, author, publisher, cover, rack_number FROM book WHERE isbn13 = ?";
+    $stmt = $link->prepare($query);
+    $stmt->bindParam(1, $isbn13);
+    $stmt->execute();
+    $link = null;
+    return $stmt->fetchObject(Book::class);
+  }
+
+  public function updateBook(Book $book): int
+  {
+    $link = PDOUtil::createMySQLConnection();
+    $query = "UPDATE book SET title = ?, author = ?, publisher = ?, rack_number = ?, cover = ? WHERE isbn13 = ?";
+    $stmt = $link->prepare($query);
+    $stmt->bindValue(6, $book->getIsbn13());
+    $stmt->bindValue(1, $book->getTitle());
+    $stmt->bindValue(2, $book->getAuthor());
+    $stmt->bindValue(3, $book->getPublisher());
+    $stmt->bindValue(4, $book->getRackNumber());
+    $stmt->bindValue(5, $book->getCover());
+    $link->beginTransaction();
+    if ($stmt->execute()) {
+      $link->commit();
+      $result = 1;
+    } else {
+      $link->rollBack();
+      $result = 0;
+    }
+    $link = null;
+    return $result;
+  }
 }
