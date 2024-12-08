@@ -11,7 +11,8 @@
     }
     ?>
     <div class="my-2">
-      <a class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" role="button" href="?menu=adm-book-create">Add book</a>
+      <a class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" role="button" href="?menu=adm-book-create">Add
+        book</a>
     </div>
 
     <table class="w-full text-left dark:text-gray-200">
@@ -37,7 +38,7 @@
         echo '<td class="px-6 py-4">' . $book->getPublisher() . '</td>';
         echo ($book->getCover() === null) ? '<td class="px-6 py-4">-</td>' : '<td class="px-6 py-4"><img src="uploads/cover/' . $book->getCover() . '" alt="Cover" class="max-w-44"></td>';
         echo '<td class="px-6 py-4">' . $book->getRackNumber() . "</td>";
-        echo '<td><a href="?menu=adm-book-edit&isbn13=' . $book->getIsbn13() . '" role="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-yellow-900">Edit</a><a href="#" role="button" class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</a></td>';
+        echo '<td><div class="flex"><a href="?menu=adm-book-edit&isbn13=' . $book->getIsbn13() . '" role="button" class="text-white bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-yellow-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:focus:ring-yellow-900">Edit</a><form method="post" action="?menu=adm-book-delete" id="delForm-' . $book->getIsbn13() . '"><input type="hidden" name="isbn13" value="' . $book->getIsbn13() . '"><button class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900 delete-button" data-id="' . $book->getIsbn13() . '">Delete</button></form></div></td>';
         echo '</tr>';
       }
       ?>
@@ -45,3 +46,26 @@
     </table>
   </div>
 </div>
+
+<script>
+  document.querySelectorAll('.delete-button').forEach(button => {
+    button.addEventListener('click', function(event) {
+      const id = this.getAttribute('data-id');
+      const form = document.getElementById('delForm-' + id);
+
+      Swal.fire({
+        title: 'Delete confirmation',
+        text: "This data will be deleted permanently",
+        icon: 'warning',
+        showCancelButton: true,
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          form.submit();
+        }
+      });
+
+      event.preventDefault();
+    });
+  });
+</script>

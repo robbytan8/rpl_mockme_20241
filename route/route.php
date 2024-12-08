@@ -25,5 +25,9 @@ switch ($menu) {
     $bookController = new BookController();
     $bookController->update();
     break;
+  case 'adm-book-delete':
+    $bookController = new BookController();
+    $bookController->delete();
+    break;
   default:
 }

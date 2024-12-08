@@ -142,4 +142,24 @@ class BookController
     }
     return $newFileName;
   }
+
+  public function delete()
+  {
+    $isbn13 = filter_input(INPUT_POST, 'isbn13', FILTER_SANITIZE_STRING);
+    $book = $this->bookDao->showOneBook($isbn13);
+    if ($book && $book->getTitle() != null) {
+      unlink('uploads/cover/' . $book->getCover());
+      $result = $this->bookDao->deleteBook($isbn13);
+      if ($result) {
+        $successMessage = 'Book deleted successfully';
+        header('location: index.php?menu=adm-book&success_message=' . $successMessage);
+      } else {
+        $errMessage = 'There is something wrong with the server';
+        header('location: index.php?menu=adm-book&err_message=' . $errMessage);
+      }
+    } else {
+      $errMessage = 'Book not found';
+      header('location: index.php?menu=adm-book&err_message=' . $errMessage);
+    }
+  }
 }

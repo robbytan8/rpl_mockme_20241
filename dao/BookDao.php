@@ -72,4 +72,22 @@ class BookDao
     $link = null;
     return $result;
   }
+
+  public function deleteBook(string $isbn13): int
+  {
+    $link = PDOUtil::createMySQLConnection();
+    $query = "DELETE FROM book WHERE isbn13 = ?";
+    $stmt = $link->prepare($query);
+    $stmt->bindParam(1, $isbn13);
+    $link->beginTransaction();
+    if ($stmt->execute()) {
+      $link->commit();
+      $result = 1;
+    } else {
+      $link->rollBack();
+      $result = 0;
+    }
+    $link = null;
+    return $result;
+  }
 }
