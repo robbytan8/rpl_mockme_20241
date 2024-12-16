@@ -12,6 +12,7 @@
           <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="isbn13">
             ISBN-13
           </label>
+          <span class="text-red-500">*</span>
         </div>
         <div class="md:w-4/5">
           <input class="appearance-none border-2 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="isbn13" type="text" name="isbn13" placeholder="e.g.. 1234567890123" maxlength="13" autofocus required>
@@ -22,6 +23,7 @@
           <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="title">
             Title
           </label>
+          <span class="text-red-500">*</span>
         </div>
         <div class="md:w-4/5">
           <input class="appearance-none border-2 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="title" type="text" placeholder="e.g. Software Engineering: A Practitioner's Approach" maxlength="100" name="title" required>
@@ -32,6 +34,7 @@
           <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="author">
             Author
           </label>
+          <span class="text-red-500">*</span>
         </div>
         <div class="md:w-4/5">
           <input class="appearance-none border-2 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="author" type="text" placeholder="e.g. John Doe" maxlength="100" name="author" required>
@@ -42,6 +45,7 @@
           <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="publisher">
             Publisher
           </label>
+          <span class="text-red-500">*</span>
         </div>
         <div class="md:w-4/5">
           <input class="appearance-none border-2 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="publisher" type="text" placeholder="e.g. Maranatha Press" maxlength="100" name="publisher" required>
@@ -52,6 +56,7 @@
           <label class="block font-bold md:text-right mb-1 md:mb-0 pr-4" for="rack_number">
             Rack Number
           </label>
+          <span class="text-red-500">*</span>
         </div>
         <div class="md:w-4/5">
           <input class="appearance-none border-2 rounded max-w-screen-sm py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-teal-500" id="rack_number" type="text" placeholder="e.g. AB-12" maxlength="10" name="rack_number" required>
