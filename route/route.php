@@ -44,6 +44,14 @@ switch ($menu) {
     $userController = new UserController();
     $userController->logout();
     break;
+  case 'register':
+    $userController = new UserController();
+    $userController->showRegisterForm();
+    break;
+  case 'register_process':
+    $userController = new UserController();
+    $userController->register();
+    break;
   default:
     $bookController = new BookController();
     $bookController->indexMemberAndGuest();
