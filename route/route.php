@@ -1,9 +1,12 @@
 <?php
 include_once 'controller/BookController.php';
+include_once 'controller/UserController.php';
 
 $menu = filter_input(INPUT_GET, 'menu', FILTER_SANITIZE_SPECIAL_CHARS);
 switch ($menu) {
   case 'home':
+    $bookController = new BookController();
+    $bookController->indexMemberAndGuest();
     break;
   case 'adm-book':
     $bookController = new BookController();
@@ -29,5 +32,19 @@ switch ($menu) {
     $bookController = new BookController();
     $bookController->delete();
     break;
+  case 'login':
+    $userController = new UserController();
+    $userController->showLoginForm();
+    break;
+  case 'login_process':
+    $userController = new UserController();
+    $userController->login();
+    break;
+  case 'logout':
+    $userController = new UserController();
+    $userController->logout();
+    break;
   default:
+    $bookController = new BookController();
+    $bookController->indexMemberAndGuest();
 }

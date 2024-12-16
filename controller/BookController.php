@@ -16,6 +16,11 @@ class BookController
     include_once('view/admin/index.php');
   }
 
+  public function indexMemberAndGuest() {
+    $books = $this->bookDao->showAllBooks();
+    include_once ('view/member/index.php');
+  }
+
   public function create()
   {
     include_once('view/admin/create.php');
