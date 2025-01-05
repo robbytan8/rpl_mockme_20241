@@ -37,13 +37,13 @@ if (!isset($_SESSION['logged_in'])) {
         if ($_SESSION['logged_in'] && $_SESSION['role'] === 1) {
           ?>
           <a href="?menu=adm-book" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-            Book Administration
+            Book Adm
           </a>
           <?php
         }
         ?>
-        <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-          Menu 2
+        <a href="?menu=adm-borrow" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+          Borrow Adm
         </a>
       </div>
     </div>
