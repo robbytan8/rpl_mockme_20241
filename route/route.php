@@ -4,6 +4,7 @@ include_once 'controller/UserController.php';
 
 $menu = filter_input(INPUT_GET, 'menu', FILTER_SANITIZE_SPECIAL_CHARS);
 switch ($menu) {
+  case 'member-book-list':
   case 'home':
     $bookController = new BookController();
     $bookController->indexMemberAndGuest();
@@ -51,6 +52,12 @@ switch ($menu) {
   case 'register_process':
     $userController = new UserController();
     $userController->register();
+    break;
+  case 'member-book-detail':
+    $bookController = new BookController();
+    $bookController->show();
+    break;
+  case 'adm-borrow':
     break;
   default:
     $bookController = new BookController();
