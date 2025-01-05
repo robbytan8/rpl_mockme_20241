@@ -34,4 +34,40 @@ class UserController
     session_destroy();
     header('location:index.php');
   }
+
+  public function showRegisterForm() {
+    include_once 'view/register.php';
+  }
+
+  public function register() {
+    $name = trim(filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING));
+    $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
+    $password = trim(filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING));
+    $rePassword = trim(filter_input(INPUT_POST, 'confirm_password', FILTER_SANITIZE_STRING));
+    $phone = trim(filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING));
+    if (!empty($name) && !empty($email) && !empty($password) && !empty($rePassword) && !empty($phone)) {
+      if ($password != $rePassword) {
+        $errMessage = 'Passwords do not match.';
+        header('location:index.php?menu=register&&message=' . $errMessage);
+      } else {
+        $user = new User();
+        $user->setName($name);
+        $user->setEmail($email);
+        $user->setPassword($password);
+        $user->setPhone($phone);
+        $user->getRole()->setId(2);
+        $result = $this->userDao->register($user);
+        if ($result) {
+          $successMessage = 'You have been successfully registered.';
+          header('location:index.php?menu=login&&success_message=' . $successMessage);
+        } else {
+          $errMessage = 'An error occurred while registering. Please try again.';
+          header('location:index.php?menu=register&&message=' . $errMessage);
+        }
+      }
+    } else {
+      $errMessage = 'Please fill all required fields.';
+      header('location:index.php?menu=register&&message=' . $errMessage);
+    }
+  }
 }

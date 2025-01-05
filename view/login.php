@@ -2,6 +2,10 @@
   <div class="flex flex-wrap justify-center items-center">
     <div class="max-w-xl p-2">
       <?php
+      $successMessage = filter_input(INPUT_GET, 'success_message', FILTER_SANITIZE_STRING);
+      if (isset($successMessage)) {
+        echo '<div class="w-full border-2 rounded bg-green-400 px-3 py-3 font-semibold">' . $successMessage . '</div>';
+      }
       $errMessage = filter_input(INPUT_GET, 'message', FILTER_SANITIZE_STRING);
       if (isset($errMessage)) {
         echo '<div class="w-full border-2 rounded bg-red-400 px-3 py-3 font-semibold">' . $errMessage . '</div>';
