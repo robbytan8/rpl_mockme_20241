@@ -13,7 +13,7 @@ class BookController
   public function index()
   {
     $books = $this->bookDao->showAllBooks();
-    include_once('view/admin/index.php');
+    include_once('view/admin/book/index.php');
   }
 
   public function indexMemberAndGuest() {
@@ -23,7 +23,7 @@ class BookController
 
   public function create()
   {
-    include_once('view/admin/create.php');
+    include_once('view/admin/book/create.php');
   }
 
   public function store()
@@ -58,12 +58,24 @@ class BookController
     }
   }
 
+  public function show()
+  {
+    $isbn13 = trim(filter_input(INPUT_GET, 'isbn'));
+    $book = $this->bookDao->showOneBook($isbn13);
+    if ($book && $book->getTitle() != null) {
+      include_once ('view/member/detail.php');
+    } else {
+      $errMessage = 'Book not found';
+      header('location: index.php?menu=member-book-list&err_message=' . $errMessage);
+    }
+  }
+
   public function edit()
   {
     $isbn13 = filter_input(INPUT_GET, 'isbn13', FILTER_SANITIZE_STRING);
     $book = $this->bookDao->showOneBook($isbn13);
     if ($book && $book->getTitle() != null) {
-      include_once('view/admin/edit.php');
+      include_once('view/admin/book/edit.php');
     } else {
       $errMessage = 'Book not found';
       header('location: index.php?menu=adm-book&err_message=' . $errMessage);
